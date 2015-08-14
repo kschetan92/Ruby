@@ -4,8 +4,7 @@ class PrimeArray
 
 	def array_sqrt(sqt, i)
 		2.upto(sqt) do |k|
-			return false if (i % j ) == 0
-			end
+			return false if (i % k ) == 0
 			return true
 		end
 	end
@@ -15,8 +14,9 @@ class PrimeArray
 			if e==1
 				false
 			else
-				sqt = Math.sqrt(i)
-				array_sqrt(sqt, i)
+				sqt = Math.sqrt(e)
+				array_sqrt(sqt, e)
+			end
 		end
 	end
 end
