@@ -1,10 +1,21 @@
-ary = [10, 2, 4, 6, 7, 1]
-sum = 0
-ary.each { |e| 
-	puts "square of #{e} is #{e*e}"
-	e = e*e
-	sum = sum+e
+require "test/unit"
 
-}
+class SquareSum
 
-puts "the sum of elements in array after squaring is #{sum}"
+	def arraySquare(array)
+		array.map { |x| x*x }		
+	end
+
+	def sumArray(array_to_Add)
+		array_to_Add.inject(0) { |sum, i| sum + i}
+	end
+end
+
+class TestArray < Test::Unit::TestCase
+	
+	def test_ArrSqrSum 
+		sqr = SquareSum.new.arraySquare([2,3,4])
+		assert_equal(29, SquareSum.new.sumArray(sqr))
+	end
+	
+end
