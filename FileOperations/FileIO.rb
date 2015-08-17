@@ -46,10 +46,6 @@ end
 class FilTest < Test::Unit::TestCase
 
 	def test_dayNumber
-		assert_equal(9, FileIO.new.find_day_number)	
+		assert_equal(9, FileIO.new.readFile)	
 	end
 end
-
-
-
-FileIO.new.find_day_number
