@@ -1,50 +1,57 @@
+
+require "test/unit"
+
 class Pattern2
-	def initialize(number)
-		@number = number
-		@space = number-1
-		@i = 0
-	end
 	
-	def printPattern
-		1.upto(@number) { |row|
-			@space.times { print "  "  } 
-			@space = @space-1
+	def initialize(no_of_lines)
+		@no_of_lines = no_of_lines
+	end
 
-			value = row
+	def add_spaces(current_line)
+		" " * (@no_of_lines-current_line)
+	end
 
-			(row).times {
+	def print_digits(current_line)
+		digits = ""
+		(current_line).upto(2*current_line-1) do |n|
+			digits << (n%10).to_s
+		end
+		digits
+	end
 
-				print value
-				print " "
-				value = value+1
+	def print_line(current_line)
+		line = add_spaces(current_line) + print_digits(current_line)
+		line + line.chop.reverse
+	end
 
-				if value==10
-					value=0
-				end
-			}
-
-			if row>1
-				value = row+@i
-				@i=@i+1
-
-				(row-1).times{
-
-						if value>=10
-							print value-10 
-							print " "
-							value = value-1
-						else
-							print value
-							print " "
-							value = value-1
-						end
-
-				}
-			end
-			puts " "
-		}
+	def print_triangle
+		1.upto(@no_of_lines) do |current_line|
+			puts print_line(current_line)
+		end
 	end
 end
 
-pattern = Pattern2.new(7)
-pattern.printPattern
+
+
+class TestPattern < Test::Unit::TestCase
+	def test_Space
+		triangle = Pattern2.new(5)
+		assert_equal("    ", triangle.add_spaces(1))
+	end
+	
+	def test_digits
+	  	triangle = Pattern2.new(5)
+	    assert_equal("1", triangle.print_digits(1))
+	    assert_equal("56789", triangle.print_digits(5))
+	end
+	
+	def test_complete_line
+	    triangle = Pattern2.new(5)
+	    assert_equal("    1    ", triangle.print_line(1))
+	    assert_equal("   232   ", triangle.print_line(2))
+	    assert_equal("  34543  ", triangle.print_line(3))
+	end
+end
+
+pattern = Pattern2.new(15)
+pattern.print_triangle
