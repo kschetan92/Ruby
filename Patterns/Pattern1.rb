@@ -40,7 +40,7 @@ class TestPattern < Test::Unit::TestCase
 		assert_equal("    1", triangle.printLine(1))
 		assert_equal("   234", triangle.printLine(2))
 		assert_equal("  56789", triangle.printLine(3))
-		assert_equal(" 0123456", triangle.printLine(4))		
+		assert_equal(" 0123456", triangle.printLine(4))
 	end
 end
 
