@@ -4,7 +4,6 @@ require "test/unit"
 class Pattern1
 	def initialize(lines)
 		@lines = lines
-		@printNumber = 1
 	end
 	
 	def print_spaces(current_line)
