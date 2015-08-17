@@ -5,7 +5,6 @@ class FileIO
 	def initialize
 		
 		@day = []
-		@min_temp = []
 
 	end
 
@@ -17,21 +16,23 @@ class FileIO
 
 	def parsecollected_data(file)
 
+		min_temp = []
+
 		file.each_line do |line|
 		@day << line.split(" ").values_at(0)
-		@min_temp << line.split(" ").values_at(2)
+		min_temp << line.split(" ").values_at(2)
 		end
 		
 		@day = @day.drop(2)
-		@min_temp = @min_temp.drop(2)
+		min_temp = min_temp.drop(2)
 		
 		ary_length = @day.length
 		ary_length.times do |index|
 			@day[index] = @day[index][0].to_i
-			@min_temp[index] = @min_temp[index][0].to_f
+			min_temp[index] = min_temp[index][0].to_f
 		end
 
-		find_min_temp(@min_temp)
+		find_min_temp(min_temp)
 
 	end
 
