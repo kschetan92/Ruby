@@ -8,19 +8,18 @@ class FileIO
 
 	def parse_collected_data(file)
 
-		max_min_temp = []
+		day_max_min_array = []
 		temp_spread = []
 
 		file.each_line do |line|
-		max_min_temp << line.split(" ").values_at(0..2)
-		
+			day_max_min_array << line.split(" ").values_at(0..2)
 		end
 
-		max_min_temp = max_min_temp.drop(2)
+		day_max_min_array = day_max_min_array.drop(2)
 		
-		max_min_temp.length.times do |index|
-			@day[index] = max_min_temp[index][0].to_i
-			temp_spread[index] = max_min_temp[index][1].to_f - max_min_temp[index][2].to_f
+		(day_max_min_array.length).times do |index|
+			@day[index] = day_max_min_array[index][0].to_i
+			temp_spread[index] = day_max_min_array[index][1].to_f - day_max_min_array[index][2].to_f
 		end
 
 		find_day_minTempSpread(temp_spread)
