@@ -1,22 +1,28 @@
 
 class FileGradleIO
 
-	def initialize(*args)
-		@file1 = args[0]
-		@file2 = args[1]
+	def initialize(path_array)
+		0.upto(path_array.length-1) do |i|
+			@file = path_array[i]
+			@file_read = File.read(@file)
+			parse_collected_data("PROD", "1.2.3", "3.1.4")
+		  end
 	end
 
 	def parse_collected_data(section, versionCode, versionName)
 
-		mch = /#{section}.*?versionCode( )*(=)*( )*(\S+).*?versionName( )*(=)*( )*(\S+)/m
-		mch.match(@file1)
-		puts "#{$4} #{$8}"
-		mch.match(@file2)
-		puts "#{$4} #{$8}"
+		mch_VCode = /#{section}.*?versionCode( )*(=)*( )*(\S+)/m
+		mch_VName = /#{section}.*?versionName( )*(=)*( )*(\W)(\S+)(\S)/m
+
+		mch_VCode.match(@file_read)
+		replaced = @file_read.gsub("#{$4}", versionCode)
+		File.open(@file,"w") {|file| file.write replaced}
+
+		mch_VName.match(@file_read)
+		replaced = @file_read.gsub("#{$5}", versionName)
+		File.open(@file,"w") {|file| file.write replaced}
+
 	end
 end
 
-file1 = "/home/chetan/Downloads/build.gradle"
-file2 = "/home/chetan/Downloads/build1.gradle"
-
-FileGradleIO.new(File.read(file1),File.read(file2)).parse_collected_data("PROD", "1.2.0", "2.3.4")
+FileGradleIO.new(["/home/chetan/Downloads/build.gradle","/home/chetan/Downloads/build1.gradle"])
