@@ -5,7 +5,7 @@ class FileGradleIO
 		0.upto(path_array.length-1) do |i|
 			@file = path_array[i]
 			@file_read = File.read(@file)
-			parse_collected_data("PROD", "1.2.3", "3.1.4")
+			parse_collected_data("DEV", "DEVCode", "DEVName")
 		  end
 	end
 
@@ -15,11 +15,11 @@ class FileGradleIO
 		mch_VName = /#{section}.*?versionName( )*(=)*( )*(\W)(\S+)(\S)/m
 
 		mch_VCode.match(@file_read)
-		replaced = @file_read.gsub("#{$4}", versionCode)
+		replaced = @file_read.sub!("#{$4}", versionCode)
 		File.open(@file,"w") {|file| file.write replaced}
 
 		mch_VName.match(@file_read)
-		replaced = @file_read.gsub("#{$5}", versionName)
+		replaced = @file_read.sub!("#{$5}", versionName)
 		File.open(@file,"w") {|file| file.write replaced}
 
 	end
